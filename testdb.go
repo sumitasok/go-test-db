@@ -41,3 +41,11 @@ func (tdb TestDb) Prepare() (*sql.DB, error) {
 	return db, nil
 
 }
+
+func (tdb TestDb) ClearTable(db *sql.DB, table_name string) error {
+	del, err := db.Prepare(fmt.Sprintf("DELETE from %s", table_name))
+	if err == nil {
+		del.Exec()
+	}
+	return err
+}
